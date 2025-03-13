@@ -1,27 +1,32 @@
-
-import { Component, inject } from '@angular/core';
-import { RefresherCustomEvent, IonHeader, IonToolbar, IonTitle, IonContent, IonRefresher, IonRefresherContent, IonList } from '@ionic/angular/standalone';
-import { MessageComponent } from '../message/message.component';
-
-import { DataService, Message } from '../services/data.service';
+import { CommonModule } from '@angular/common';
+import { Component } from '@angular/core';
+import {IonHeader, IonToolbar, IonTitle, IonContent, IonList, IonCard,IonCardContent,IonCardHeader,
+      IonCardTitle, IonButton,IonFab,IonFabButton} from '@ionic/angular/standalone';
+import { Router } from '@angular/router';
+import { DataService } from '../services/data.service';
 
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
-  imports: [IonHeader, IonToolbar, IonTitle, IonContent, IonRefresher, IonRefresherContent, IonList, MessageComponent],
+  imports: [CommonModule,IonHeader, IonToolbar, IonTitle, IonContent,IonCard,IonCardContent,IonCardHeader,IonCardTitle,IonFab,IonFabButton],
 })
 export class HomePage {
-  private data = inject(DataService);
-  constructor() {}
+  listas = [
+    { id: 1, nombre: 'Supermercado', items: ['Leche', 'Pan', 'Huevos'] },
+    { id: 2, nombre: 'Verduras', items: ['Zanahoria', 'Papa', 'Tomate'] }
+  ];
 
-  refresh(ev: any) {
-    setTimeout(() => {
-      (ev as RefresherCustomEvent).detail.complete();
-    }, 3000);
+  constructor(private router: Router) {}
+
+  // Redirige a la página de edición/agregado
+  goToLista(id?: number) {
+    this.router.navigate(['/editar-lista', id ? id : 'nueva']);
   }
 
-  getMessages(): Message[] {
-    return this.data.getMessages();
+  agregarLista() {
+    this.router.navigate(['/editar-lista/nueva']);
   }
+  
+  
 }
