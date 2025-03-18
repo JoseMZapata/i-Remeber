@@ -1,37 +1,63 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { IonContent, IonHeader, IonTitle, IonToolbar,IonItem,IonButton,IonLabel} from '@ionic/angular/standalone';
+import { IonSelectOption,IonButtons,IonContent, IonHeader, IonTitle, IonToolbar, IonItem, IonButton, IonLabel, IonDatetimeButton, IonDatetime, IonModal, IonList, IonImg, IonAvatar } from '@ionic/angular/standalone';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ListasService } from '../services/listas.service'; // Asegúrate de importar bien el servicio
 
 @Component({
   selector: 'app-editar-lista',
   templateUrl: './editar-lista.page.html',
   styleUrls: ['./editar-lista.page.scss'],
   standalone: true,
-  imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, IonItem,IonButton,IonLabel]
+  imports: [IonAvatar, IonImg, IonSelectOption,IonButtons,IonList, IonModal, IonDatetime, IonDatetimeButton, IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, IonItem, IonButton, IonLabel]
 })
 export class EditarListaPage implements OnInit {
-
+  
   listaId: string | null = null;
   nombreLista = '';
   items: string = '';
 
-  constructor(private route: ActivatedRoute, private router: Router) {}
+  nombreProducto: string = '';
+  categoriaProducto: string = '';
+  precioProducto: number = 0;
+
+  cerrarModal() {
+  }
+
+  guardarProducto() {
+    console.log('Producto guardado:', {
+      nombre: this.nombreProducto,
+      categoria: this.categoriaProducto,
+      precio: this.precioProducto,
+    });
+
+    // Lógica para guardar en la base de datos o lista
+  }
+    // Aquí puedes añadir lógica para guardar el producto en una base de datos o lista
+  
+
+  constructor(private route: ActivatedRoute, private router: Router, private listasService: ListasService) {}
 
   ngOnInit() {
     this.listaId = this.route.snapshot.paramMap.get('id');
     
-    if (this.listaId !== 'nueva') {
-      // Aquí podrías cargar los datos de la lista a editar desde un servicio
-      this.nombreLista = 'Ejemplo de Lista'; // Reemplazar por datos reales
-      this.items = 'Leche, Pan, Huevos'; // Reemplazar por datos reales
+    if (this.listaId && this.listaId !== 'nueva') {
+      const lista = this.listasService.getLista(this.listaId);
+      if (lista) {
+        this.nombreLista = lista.nombre;
+        this.items = lista.items.join(', ');
+      }
     }
   }
 
   guardarLista() {
-    console.log('Lista guardada:', { nombre: this.nombreLista, items: this.items.split(', ') });
-    this.router.navigate(['/home']); // Regresa a la vista principal
+    if (!this.nombreLista.trim()) return;
+
+    const id: string = this.listaId === 'nueva' || !this.listaId ? Date.now().toString() : this.listaId;
+    this.listasService.guardarLista(id, this.nombreLista, this.items);
+
+    this.router.navigate(['/home'], { replaceUrl: true });
   }
 
 }
