@@ -10,7 +10,7 @@ import { ListasService } from '../services/listas.service'; // Asegúrate de imp
   templateUrl: './editar-lista.page.html',
   styleUrls: ['./editar-lista.page.scss'],
   standalone: true,
-  imports: [IonAvatar, IonImg, IonSelectOption,IonButtons,IonList, IonModal, IonDatetime, IonDatetimeButton, IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, IonItem, IonButton, IonLabel]
+  imports: [IonAvatar, IonModal, IonImg, IonSelectOption,IonButtons,IonList, IonModal, IonDatetime, IonDatetimeButton, IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, IonItem, IonButton, IonLabel]
 })
 export class EditarListaPage implements OnInit {
   

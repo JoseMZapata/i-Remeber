@@ -10,3 +10,11 @@
     text-align: center;
   }
   
+  .botones-fila ion-button {
+    margin-right: 8px;
+  }
+  
+  .botones-fila ion-button:last-child {
+    margin-right: 0; /* Elimina margen del último */
+  }
+  

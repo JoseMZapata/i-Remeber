@@ -24,17 +24,23 @@
 
 <ion-content>
   <ion-item>
-    <ion-item>
-      <ion-button slot="start"> Todos </ion-button>
-    </ion-item>
-    
-    <ion-button slot="start">
-      <ion-icon slot="icon-only" name="star"></ion-icon>
-    </ion-button>
 
-    <ion-button slot="end">
-      <ion-icon slot="icon-only" name="star"></ion-icon>
-    </ion-button>
+    <ion-item lines="none" class="botones-fila">
+
+      <ion-button fill="solid" color="primary">
+        Todo
+      </ion-button>
+    
+      <ion-button fill="solid" color="primary">
+        <ion-icon slot="icon-only" name="archive-outline"></ion-icon>
+      </ion-button>
+    
+      <ion-button fill="solid" color="primary">
+        <ion-icon slot="icon-only" name="checkbox-outline"></ion-icon>
+      </ion-button>
+      
+    </ion-item>    
+    
   </ion-item>
 
   <div class="grid-container">

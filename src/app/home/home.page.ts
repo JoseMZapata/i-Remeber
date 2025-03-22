@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { IonContent, IonHeader, IonTitle, IonToolbar, IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonFab, IonFabButton,IonSearchbar,IonMenu,IonButtons,IonMenuButton,IonItem,IonButton,IonIcon } from '@ionic/angular/standalone';
+import { IonButton, IonModal, IonContent, IonHeader, IonTitle, IonToolbar, IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonFab, IonFabButton,IonSearchbar,IonMenu,IonButtons,IonMenuButton,IonItem,IonIcon } from '@ionic/angular/standalone';
 import { Router } from '@angular/router';
 import { ListasService } from '../services/listas.service';
+
 
 
 @Component({
@@ -10,7 +11,7 @@ import { ListasService } from '../services/listas.service';
   templateUrl: './home.page.html',
   styleUrls: ['./home.page.scss'],
   standalone: true,
-  imports: [IonContent, IonHeader, IonTitle, IonToolbar, IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonFab, IonFabButton, CommonModule,IonSearchbar,IonMenu,IonButtons,IonMenuButton,IonItem,IonButton,IonIcon]
+  imports: [IonModal,IonContent, IonHeader, IonTitle, IonToolbar, IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonFab, IonFabButton, CommonModule,IonSearchbar,IonMenu,IonButtons,IonMenuButton,IonItem,IonButton,IonIcon]
 })
 export class HomePage implements OnInit {
   
