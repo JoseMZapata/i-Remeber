@@ -1,27 +1,63 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>
-      yo-recordar
-    </ion-title>
-  </ion-toolbar>
-</ion-header>
-
-<ion-content [fullscreen]="true">
-  <ion-refresher slot="fixed" (ionRefresh)="refresh($event)">
-    <ion-refresher-content></ion-refresher-content>
-  </ion-refresher>
-
-  <ion-header collapse="condense">
+<ion-menu contentId="main-content">
+  <ion-header>
     <ion-toolbar>
-      <ion-title size="large">
-        Inbox
-      </ion-title>
+      <ion-title>Menu Content</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <ion-content class="ion-padding">
+    This is the menu content.
+  </ion-content>
+</ion-menu>
+
+<div class="ion-page" id="main-content">
+  <ion-header>
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-menu-button></ion-menu-button>
+      </ion-buttons>
+      <ion-title>i-Remember</ion-title>
+    </ion-toolbar>
+    <ion-toolbar>
+      <ion-searchbar></ion-searchbar>
     </ion-toolbar>
   </ion-header>
 
-  <ion-list>
-    @for (message of getMessages(); track message) {
-      <app-message [message]="message"></app-message>
-    }
-  </ion-list>
+<ion-content>
+  <ion-item>
+
+    <ion-item lines="none" class="botones-fila">
+
+      <ion-button fill="solid" color="primary">
+        Todo
+      </ion-button>
+    
+      <ion-button fill="solid" color="primary">
+        <ion-icon slot="icon-only" name="archive-outline"></ion-icon>
+      </ion-button>
+    
+      <ion-button fill="solid" color="primary">
+        <ion-icon slot="icon-only" name="checkbox-outline"></ion-icon>
+      </ion-button>
+      
+    </ion-item>    
+    
+  </ion-item>
+
+  <div class="grid-container">
+    <ion-card *ngFor="let lista of listas" (click)="goToLista(lista.id)" class="grid-item">
+      <ion-card-header>
+        <ion-card-title>{{ lista.nombre }}</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <p>{{ lista.items.join(', ') }}</p>
+        <p *ngIf="lista.items.length === 0">Lista vacía</p>
+      </ion-card-content>
+    </ion-card>
+  </div>
+
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button (click)="agregarLista()">
+      <img src="../assets/add-outline.svg" alt="Agregar">
+    </ion-fab-button>
+  </ion-fab>
 </ion-content>

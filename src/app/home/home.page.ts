@@ -1,27 +1,43 @@
+import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { IonButton, IonModal, IonContent, IonHeader, IonTitle, IonToolbar, IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonFab, IonFabButton,IonSearchbar,IonMenu,IonButtons,IonMenuButton,IonItem,IonIcon } from '@ionic/angular/standalone';
+import { Router } from '@angular/router';
+import { ListasService } from '../services/listas.service';
 
-import { Component, inject } from '@angular/core';
-import { RefresherCustomEvent, IonHeader, IonToolbar, IonTitle, IonContent, IonRefresher, IonRefresherContent, IonList } from '@ionic/angular/standalone';
-import { MessageComponent } from '../message/message.component';
 
-import { DataService, Message } from '../services/data.service';
 
 @Component({
   selector: 'app-home',
-  templateUrl: 'home.page.html',
-  styleUrls: ['home.page.scss'],
-  imports: [IonHeader, IonToolbar, IonTitle, IonContent, IonRefresher, IonRefresherContent, IonList, MessageComponent],
+  templateUrl: './home.page.html',
+  styleUrls: ['./home.page.scss'],
+  standalone: true,
+  imports: [IonModal,IonContent, IonHeader, IonTitle, IonToolbar, IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonFab, IonFabButton, CommonModule,IonSearchbar,IonMenu,IonButtons,IonMenuButton,IonItem,IonButton,IonIcon]
 })
-export class HomePage {
-  private data = inject(DataService);
-  constructor() {}
+export class HomePage implements OnInit {
+  
+  listas: { id: string, nombre: string, items: string[] }[] = [];
 
-  refresh(ev: any) {
-    setTimeout(() => {
-      (ev as RefresherCustomEvent).detail.complete();
-    }, 3000);
+  constructor(private router: Router, private listasService: ListasService) {}
+  
+
+  ngOnInit() {
+    this.cargarListas();
   }
 
-  getMessages(): Message[] {
-    return this.data.getMessages();
+  ionViewWillEnter() {
+    this.cargarListas();
+  }
+
+  cargarListas() {
+    this.listas = this.listasService.getListas();
+  }
+
+  goToLista(id: string) {
+    this.router.navigate(['/editar-lista', id]);
+  }
+
+  agregarLista() {
+    this.router.navigate(['/editar-lista', 'nueva']);
   }
 }
+
